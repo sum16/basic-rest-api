@@ -16,6 +16,17 @@ app.get("/api/v1/users", (req, res) => {
   db.close();
 });
 
+app.get("/api/v1/users/:id", (req, res) => {
+  const db = new sqlite3.Database(dbPath);
+  const id = req.params.id;
+
+  db.get(`SELECT * FROM users WHERE id = ${id}`, (err, rows) => {
+    res.json(rows);
+  });
+
+  db.close();
+});
+
 const port = process.env.Port || 3000;
 // サーバー立ち上げ
 app.listen(port);
