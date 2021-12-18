@@ -27,6 +27,18 @@ app.get("/api/v1/users/:id", (req, res) => {
   db.close();
 });
 
+// キーワードとマッチングしたuserを検索する
+app.get("/api/v1/search", (req, res) => {
+  const db = new sqlite3.Database(dbPath);
+  const keyword = req.query.q;
+
+  db.get(`SELECT * FROM users WHERE name LIKE "%${keyword}%"`, (err, rows) => {
+    res.json(rows);
+  });
+
+  db.close();
+});
+
 const port = process.env.Port || 3000;
 // サーバー立ち上げ
 app.listen(port);
