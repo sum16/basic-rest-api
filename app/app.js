@@ -4,6 +4,10 @@ const app = express();
 // sqlite3のパッケージを読み込み
 const sqlite3 = require("sqlite3");
 const dbPath = "app/db/database.sqlite3";
+//pathモジュールをインストール
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // ルーティングを指定
 app.get("/api/v1/users", (req, res) => {
